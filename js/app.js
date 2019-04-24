@@ -79,4 +79,4 @@ function popimg(){
   });
 }
 
-$(()=>MyHorn.readJson('/../data/page-1.json'));
+$(()=>MyHorn.readJson('./../data/page-1.json'));
