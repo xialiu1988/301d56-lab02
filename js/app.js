@@ -79,4 +79,4 @@ function popimg(){
   });
 }
 
-$(()=>MyHorn.readJson('/../data/page-1.json'));
+$(()=>MyHorn.readJson('301d56-lab02/data/page-1.json'));
