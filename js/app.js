@@ -1,33 +1,97 @@
 'use strict';
 
-var horns=[]
-function Horn(image_url,title,description,keyword,horns){
-this.image_url=image_url;
-this.title=title;
-this.description=description;
-this.keyword=keyword;
-this.horns=horns;
+function Horns(horn){
+
+    this.image_url=horn.image_url;
+    this.title=horn.title;
+    this.description=horn.description;
+    this.keyword=horn.keyword;
+    this.horns=horn.horns;
+  
+  }
+  
+  Horns.allHorns=[];
+ 
+  Horns.readJson=(filename)=>{
+    Horns.allHorns=[];
+    $.get(filename,'json')
+  
+      .then(data=>{
+  
+        data.forEach(horn=>{
+          Horns.allHorns.push(new Horns(horn))
+        })
+      })
+  
+      .then (Horns.loadHorns).then(Horns.imgselect)
+  
+  };
+
+  Horns.loadHorns=()=>
+  Horns.allHorns.forEach(horn=>{
+      
+    $('#photo-template').append('<div class="clone"></div>');
+    let hornClone=$('div[class="clone"]');
+    let hornHtml=$('#template').html();
+    hornClone.html(hornHtml);
+  
+    hornClone.find('h2').text(horn.title);
+    hornClone.find('img').attr('src',horn.image_url);
+    hornClone.find('p').text(horn.description);
+    hornClone.find('p').text(horn.keyword);
+    hornClone.find('p').text(horn.horns);
+    hornClone.removeClass('clone');
+    hornClone.attr('class',horn.keyword);
+  });
+
+
+Horns.imgselect=function(){
+
+  let newarr=[];
+  Horns.allHorns.forEach(item=>{
+
+    if(!newarr.includes(item.keyword)){
+
+      $('select').append('<option class="clone"></option>');
+      let opt=$('option[class="clone"]');
+      opt.text(item.keyword);
+      newarr.push(item.keyword);
+      opt.removeClass('clone');
+    }
+  })
+
 }
 
+Horns.prototype.render=function(){
 
-$.get('../data/page-1.json',data=>{
-data.forEach(element => {  
-  horns.push( new Horn(element.image_url,element.title,element.description,element.keyword,element.horns));
-});
+    $('#photo-template').append('<div class="clone"></div>');
+    let hornClone=$('div[class="clone"]');
+    let hornHtml=$('#template').html();
+    hornClone.html(hornHtml);
+  
+    hornClone.find('h2').text(this.title);
+    hornClone.find('img').attr('src',this.image_url);
+    hornClone.find('p').text(this.description);
+    hornClone.find('p').text(this.keyword);
+    hornClone.find('p').text(this.horns);
+    hornClone.removeClass('clone');
+    hornClone.attr('class',this.keyword);
+  
+  }
+  
+  $('select').on('change',popimg);
+function popimg(){
+  $('div').remove();
+  let selecteditem=$(this).val();
 
-for(let i=0;i<horns.length;i++){
- console.log(horns[0].image_url);
- $('#template').append('<div class="clone"></div>');
- let clone=$('div[class="clone"]');
- let html=$('#photo-template').html();
-  clone.html(html);
- clone.find('h2').text(horns[i].title);
-  clone.find('img').attr('src',horns[i].image_url);
-  clone.find('p').text(horns[i].description);
-  clone.removeClass('clone');
+  Horns.allHorns.forEach(item=>{
+
+    if (selecteditem===item.keyword){
+      item.render();
+    
+    }
+  });
+
 }
-});
 
-
-
-
+$(()=>Horns.readJson('../data/page-1.json'));
