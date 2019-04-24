@@ -1,34 +1,34 @@
 'use strict';
-
-function Horns(horn){
+//create MyHorn object by passing an object
+function MyHorn(horn){
 
     this.image_url=horn.image_url;
     this.title=horn.title;
     this.description=horn.description;
     this.keyword=horn.keyword;
-    this.horns=horn.horns;
+    this.MyHorn=horn.MyHorn;
   
   }
-  
-  Horns.allHorns=[];
+  //an array to hold all the MyHorn
+  MyHorn.allMyHorn=[];
  
-  Horns.readJson=(filename)=>{
-    Horns.allHorns=[];
+  MyHorn.readJson=(filename)=>{
+
     $.get(filename,'json')
   
       .then(data=>{
   
         data.forEach(horn=>{
-          Horns.allHorns.push(new Horns(horn))
+          MyHorn.allMyHorn.push(new MyHorn(horn))
         })
       })
   
-      .then (Horns.loadHorns).then(Horns.imgselect)
+      .then (MyHorn.loadMyHorn).then(MyHorn.imgselect)
   
   };
 
-  Horns.loadHorns=()=>
-  Horns.allHorns.forEach(horn=>{
+  MyHorn.loadMyHorn=()=>
+  MyHorn.allMyHorn.forEach(horn=>{
       
     $('#photo-template').append('<div class="clone"></div>');
     let hornClone=$('div[class="clone"]');
@@ -39,17 +39,17 @@ function Horns(horn){
     hornClone.find('img').attr('src',horn.image_url);
     hornClone.find('p').text(horn.description);
     hornClone.find('p').text(horn.keyword);
-    hornClone.find('p').text(horn.horns);
+    hornClone.find('p').text(horn.MyHorn);
     hornClone.removeClass('clone');
     hornClone.attr('class',horn.keyword);
   });
 
 
-Horns.imgselect=function(){
+MyHorn.imgselect=function(){
 
   let newarr=[];
-  Horns.allHorns.forEach(item=>{
-
+  MyHorn.allMyHorn.forEach(item=>{
+// add unique keywords to the dropdown list
     if(!newarr.includes(item.keyword)){
 
       $('select').append('<option class="clone"></option>');
@@ -62,7 +62,7 @@ Horns.imgselect=function(){
 
 }
 
-Horns.prototype.render=function(){
+MyHorn.prototype.render=function(){
 
     $('#photo-template').append('<div class="clone"></div>');
     let hornClone=$('div[class="clone"]');
@@ -73,7 +73,7 @@ Horns.prototype.render=function(){
     hornClone.find('img').attr('src',this.image_url);
     hornClone.find('p').text(this.description);
     hornClone.find('p').text(this.keyword);
-    hornClone.find('p').text(this.horns);
+    hornClone.find('p').text(this.MyHorn);
     hornClone.removeClass('clone');
     hornClone.attr('class',this.keyword);
   
@@ -81,17 +81,16 @@ Horns.prototype.render=function(){
   
   $('select').on('change',popimg);
 function popimg(){
+    //clear all the former images in the div
   $('div').remove();
   let selecteditem=$(this).val();
-
-  Horns.allHorns.forEach(item=>{
+//go throught the horns array and find keyword mathes the selected one, render that image
+  MyHorn.allMyHorn.forEach(item=>{
 
     if (selecteditem===item.keyword){
-      item.render();
-    
+      item.render();   
     }
   });
-
 }
 
-$(()=>Horns.readJson('../data/page-1.json'));
+$(()=>MyHorn.readJson('../data/page-1.json'));
