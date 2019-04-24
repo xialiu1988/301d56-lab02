@@ -28,21 +28,7 @@ function MyHorn(horn){
   };
 
   MyHorn.loadMyHorn=()=>
-  MyHorn.allMyHorn.forEach(horn=>{
-      
-    $('#photo-template').append('<div class="clone"></div>');
-    let hornClone=$('div[class="clone"]');
-    let hornHtml=$('#template').html();
-    hornClone.html(hornHtml);
-  
-    hornClone.find('h2').text(horn.title);
-    hornClone.find('img').attr('src',horn.image_url);
-    hornClone.find('p').text(horn.description);
-    hornClone.find('p').text(horn.keyword);
-    hornClone.find('p').text(horn.MyHorn);
-    hornClone.removeClass('clone');
-    hornClone.attr('class',horn.keyword);
-  });
+  MyHorn.allMyHorn.forEach(horn=>horn.render());
 
 
 MyHorn.imgselect=function(){
