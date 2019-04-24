@@ -7,3 +7,11 @@ height: 200px;
 div{
     display: inline-block;
 }
+
+#photo-template {
+    margin-left: 120px;
+  }
+  
+#keywordSelect {
+    margin-left: 45%;
+  }
