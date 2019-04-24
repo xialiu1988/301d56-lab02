@@ -3,8 +3,19 @@ h1 {
   font-size: 35px;
   font-weight: bold;
   text-align: center;
+  margin-top: 10px;
+}
+
+header {
+  background-color: blue;
 }
 
 img {
   border: 1px solid black;
+  border-radius: 90%;
+}
+
+footer {
+  font-family: 'ZCOOL KuaiLe', cursive;
+  text-align: center;
 }
