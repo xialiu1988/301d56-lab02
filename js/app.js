@@ -12,6 +12,15 @@ function MyHorn(horn){
 //an array to hold all the MyHorn
 MyHorn.allMyHorn=[];
 
+
+MyHorn.prototype.tohtml=function(){
+  let $target=$('#handlebar').html();
+  let $source=Handlebars.compile($target);
+  return $source(this);
+};
+
+
+
 MyHorn.readJson=(filename)=>{
 
   $.get(filename,'json')
@@ -28,14 +37,14 @@ MyHorn.readJson=(filename)=>{
 };
 
 MyHorn.loadMyHorn=()=>
-  MyHorn.allMyHorn.forEach(horn=>horn.render());
+  MyHorn.allMyHorn.forEach(horn=>{$('#photo-template').append(horn.tohtml());});
 
 
 MyHorn.imgselect=function(){
 
   let newarr=[];
   MyHorn.allMyHorn.forEach(item=>{
-  // add unique keywords to the dropdown list
+    // add unique keywords to the dropdown list
     if(!newarr.includes(item.keyword)){
 
       $('select').append('<option class="clone"></option>');
@@ -85,7 +94,8 @@ $('#one').on('click',function(){
   $('div').remove();
   //clear the dropdown list
   $('option').remove();
- 
+  MyHorn.allMyHorn=[];
+
   //load the page
   $(()=>MyHorn.readJson('data/page-1.json'));
 });
@@ -94,11 +104,13 @@ $('#one').on('click',function(){
 
 $('#two').on('click',function(){
 //clear the div
-$('div').remove();
-//clear the dropdown list
-$('option').remove();
-//load the page
-$(()=>MyHorn.readJson('data/page-2.json'));
+  $('div').remove();
+  //clear the dropdown list
+  $('option').remove();
+  //load the page
+  MyHorn.allMyHorn=[];
+
+  $(()=>MyHorn.readJson('data/page-2.json'));
 });
 
 
