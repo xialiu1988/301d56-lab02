@@ -1,18 +1,30 @@
-section {
-    float: left;
+section #template{
+  flex-direction: row;
+  display: flex; 
+  justify-content: center;
+  flex-wrap: wrap;
 }
 
 img{
- width:300px;
-height: 200px;
+ width:250px;
+height: 150px;
 }
 
 div{
-    display: inline-block;
+  margin-bottom: 2em;
+  width:350px;
+  box-sizing: border-box;
+  text-align: center; 
+  background-color: none;
+  justify-content: center;
 }
 
 #photo-template {
-    margin-left: 120px;
+  margin-top:80px;
+  flex-direction: row;
+  display: flex; 
+  justify-content: center;
+  flex-wrap: wrap;
   }
   
 #keywordSelect {
