@@ -6,7 +6,7 @@ function MyHorn(horn){
   this.title=horn.title;
   this.description=horn.description;
   this.keyword=horn.keyword;
-  this.MyHorn=horn.MyHorn;
+  this.horns=horn.horns;
 
 }
 //an array to hold all the MyHorn
@@ -87,6 +87,33 @@ function popimg(){
     }
   });
 }
+
+$('#sortbytitle').on('change',function(){
+
+  $('div').remove();
+  MyHorn.allMyHorn.sort((a,b)=>{
+    a=a.title.toUpperCase();
+    b=b.title.toUpperCase();
+    if(a>b){
+      return 1;
+    }
+    else if(a<b){
+      return -1;
+    }
+    else {
+      return 0;
+    }
+  });
+  MyHorn.loadMyHorn();
+});
+
+$('#sortbynumber').on('change',function(){
+  $('div').remove();
+  MyHorn.allMyHorn.sort((a,b)=>{
+    return a.horns-b.horns;
+  });
+  MyHorn.loadMyHorn();
+});
 
 
 
