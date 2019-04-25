@@ -79,4 +79,28 @@ function popimg(){
   });
 }
 
+
+
+$('#one').on('click',function(){
+  $('div').remove();
+  //clear the dropdown list
+  $('option').remove();
+ 
+  //load the page
+  $(()=>MyHorn.readJson('data/page-1.json'));
+});
+
+
+
+$('#two').on('click',function(){
+//clear the div
+$('div').remove();
+//clear the dropdown list
+$('option').remove();
+//load the page
+$(()=>MyHorn.readJson('data/page-2.json'));
+});
+
+
+
 $(()=>MyHorn.readJson('data/page-1.json'));
