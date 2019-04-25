@@ -5,7 +5,11 @@ h1 {
   text-align: center;
   margin-top: 10px;
 }
-
+h2{
+  line-height: 40px;
+  color:rgb(78, 71, 70);
+  background-color: aquamarine;
+}
 header {
   background-color: blue;
 }
